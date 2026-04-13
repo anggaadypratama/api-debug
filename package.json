@@ -1,7 +1,7 @@
 {
   "name": "debug",
   "scripts": {
-    "dev": "bun run --hot index.tsx"
+    "dev": "bun run --hot index.ts"
   },
   "dependencies": {
     "hono": "^4.12.12"

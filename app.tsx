@@ -88,11 +88,11 @@ app.get("/:device_id?", (c) => {
 
 app.all("/debug/:device_id", async (c) => {
   const deviceId = c.req.param("device_id");
-  const uuid = getCookie(c, "device_id");
+  // const uuid = getCookie(c, "device_id");
 
-  if (deviceId !== uuid) {
-    return c.text("Unauthorized");
-  }
+  // if (deviceId !== uuid) {
+  //   return c.text("Unauthorized");
+  // }
 
   const req = await cloneRawRequest(c.req);
   const body = req.method === "GET" ? null : await req.json();

@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { getCookie, setCookie } from "hono/cookie";
+import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 import { html } from "hono/html";
 import { logger } from "hono/logger";
 import { cloneRawRequest } from "hono/request";
@@ -45,8 +45,15 @@ const Layout: FC<{ title: string; uuid: string; children?: any }> = (props) => {
 
 app.use(logger());
 
-app.get("/", (c) => {
-  let uuid = getCookie(c, "device_id");
+app.get("/logout", (c) => {
+  deleteCookie(c, "device_id");
+  return c.text("Cookie removed");
+});
+
+app.get("/:device_id?", (c) => {
+  const devId = c.req.param("device_id");
+
+  let uuid = getCookie(c, "device_id") ?? devId;
 
   if (!uuid) {
     uuid = crypto.randomUUID();
